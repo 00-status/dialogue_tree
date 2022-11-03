@@ -1,0 +1,21 @@
+{
+  "name": "dialogue_tree",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "author": "00-status <dedypips@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "node_modules/.bin/webpack --env prod --mode production --config ./webpack.config.js",
+    "start": "node_modules/.bin/webpack --watch --env dev --mode development --config ./webpack.config.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "ts-loader": "^9.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.2.2",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
