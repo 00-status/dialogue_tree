@@ -1,3 +1,9 @@
+import './app.css';
+
 export const App = () => {
-    return <div>Hello World!</div>;
+    return (
+    <div className='app'>
+        <h1>Dialogue Tree</h1>
+    </div>
+    );
 };
