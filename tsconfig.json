@@ -3,6 +3,15 @@
         "composite": true,
         "rootDir": ".",
         "outDir": "./dist/",
+        "declaration": true,
         "target": "esnext",
-    }
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "jsx": "react-jsx",
+        "strict": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }
