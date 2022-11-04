@@ -12,7 +12,7 @@ export const useAvailableSections = (
             return false;
         }
 
-        if (section.prerequisite && section.prerequisite !== trait) {
+        if (!section.prerequisite || section.prerequisite !== trait) {
             return false;
         }
 

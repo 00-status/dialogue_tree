@@ -1,3 +1,4 @@
+export const STARTING_TRAIT = 'user_start';
 
 export const sections: Array<Section> = [
     {
@@ -10,7 +11,7 @@ export const sections: Array<Section> = [
         choiceLabel: 'I\'m doing well!',
         trait: 'user_doing_well',
         description: "Good to hear that!",
-        prerequisite: null
+        prerequisite: STARTING_TRAIT
     },
     {
         choiceLabel: 'How is Max doing?',

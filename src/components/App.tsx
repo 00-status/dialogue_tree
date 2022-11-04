@@ -1,12 +1,12 @@
 import './app.css';
 import {Description} from "./Description/Description";
-import {sections} from "../data/sectionData";
+import { sections, STARTING_TRAIT } from "../data/sectionData";
 import {useState} from "react";
 import {useAvailableSections} from "../hooks/useAvailableSections";
 
 export const App = () => {
     const [section, setSection] = useState(sections[0]);
-    const [trait, setTrait] = useState<string|null>(null);
+    const [trait, setTrait] = useState<string|null>(STARTING_TRAIT);
 
     const { sections: choices } = useAvailableSections(section.description, trait);
 
