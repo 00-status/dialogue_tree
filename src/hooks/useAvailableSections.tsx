@@ -5,10 +5,14 @@ type AvailableSections = {
 };
 export const useAvailableSections = (
     sectionDescription: string,
-    traits: Array<string>
+    trait: string|null
 ): AvailableSections => {
     const filteredSections = sections.filter((section: Section) => {
-        if (section.prerequisite && !traits.includes(section.prerequisite)) {
+        if (section.choiceLabel === null) {
+            return false;
+        }
+
+        if (section.prerequisite && section.prerequisite !== trait) {
             return false;
         }
 

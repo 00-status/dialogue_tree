@@ -6,9 +6,10 @@ const TEST_CHOICE_ONE = 'Leads to choice 1';
 const TEST_DESCRIPTION_ONE = 'Test Description One!';
 const TEST_CHOICE_TWO = 'Leads to choice 2';
 const TEST_DESCRIPTION_TWO = 'Test Description Two!';
+const TEST_TRAIT_TWO = 'Trait Two!';
 const TEST_CHOICE_THREE = 'Leads to choice 3';
 const TEST_DESCRIPTION_THREE = 'Test Description Three!';
-const TEST_SHARED_TRAIT = 'Test Shared Trait!';
+const TEST_TRAIT_THREE = 'Trait Three!';
 
 jest.mock('../data/sectionData', () => {
     return {
@@ -37,13 +38,13 @@ describe('App', () => {
                         choiceLabel: TEST_CHOICE_TWO,
                         description: TEST_DESCRIPTION_TWO,
                         prerequisite: null,
-                        trait: TEST_SHARED_TRAIT
+                        trait: TEST_TRAIT_TWO
                     },
                     {
                         choiceLabel: TEST_CHOICE_THREE,
                         description: TEST_DESCRIPTION_THREE,
                         prerequisite: null,
-                        trait: TEST_SHARED_TRAIT
+                        trait: TEST_TRAIT_THREE
                     }
                 ]
             }
@@ -69,28 +70,28 @@ describe('App', () => {
         getByText(TEST_CHOICE_THREE);
     });
 
-    it('should render a trait when a section with a trait is clicked.', async () => {
+    it('should render the current trait when a section with a trait is clicked.', async () => {
         const { getByText, queryByText } = render(<App />);
 
-        expect(queryByText(TEST_SHARED_TRAIT)).toBeNull();
+        expect(queryByText(TEST_TRAIT_TWO)).toBeNull();
 
         await act(() => {
             getByText(TEST_CHOICE_TWO).click();
         });
 
-        getByText(TEST_SHARED_TRAIT);
+        getByText(TEST_TRAIT_TWO);
     });
 
-    it('should NOT render multiple traits of the same name.', async () => {
+    it('should NOT render multiple traits', async () => {
         const { getByText, getAllByText } = render(<App />);
 
         await act(() => {
             getByText(TEST_CHOICE_TWO).click();
         });
         await act(() => {
-            getByText(TEST_CHOICE_THREE).click();
+            getByText(TEST_CHOICE_TWO).click();
         });
 
-        expect(getAllByText(TEST_SHARED_TRAIT)).toHaveLength(1);
+        expect(getAllByText(TEST_TRAIT_TWO)).toHaveLength(1);
     });
 });

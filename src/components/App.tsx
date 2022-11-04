@@ -6,24 +6,20 @@ import {useAvailableSections} from "../hooks/useAvailableSections";
 
 export const App = () => {
     const [section, setSection] = useState(sections[0]);
-    const [traits, setTraits] = useState<Array<string>>([]);
+    const [trait, setTrait] = useState<string|null>(null);
 
-    const { sections: choices } = useAvailableSections(section.description, traits);
+    const { sections: choices } = useAvailableSections(section.description, trait);
 
     const onChoiceClick = (section: Section) => {
         setSection(section);
-
-        if (section.trait && !traits.includes(section.trait)) {
-            traits.push(section.trait);
-            setTraits([...traits]);
-        }
+        setTrait(section.trait);
     };
 
     return (
     <div className='app'>
         <h1>Dialogue Tree</h1>
         <ul>
-            {traits.map((trait: string) => <li key={trait}>{trait}</li>)}
+            {trait && <li key={trait}>{trait}</li>}
         </ul>
         <Description label={section.description} />
         {choices.map((section) => {
