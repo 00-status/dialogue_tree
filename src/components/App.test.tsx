@@ -47,7 +47,7 @@ describe('App', () => {
         getByText(TEST_DESCRIPTION_ONE);
 
         await act(() => {
-            const choice = getByText(TEST_CHOICE_TWO).click();
+            getByText(TEST_CHOICE_TWO).click();
         });
 
         getByText(TEST_DESCRIPTION_TWO);
