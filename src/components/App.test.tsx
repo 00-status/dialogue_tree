@@ -7,4 +7,9 @@ describe('App', () => {
 
         getByText('Dialogue Tree');
     });
+    it('should display a dialogue description', () => {
+        const { getByText } = render(<App />);
+
+        getByText('Description');
+    })
 });
