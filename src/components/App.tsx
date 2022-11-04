@@ -10,6 +10,10 @@ export const App = () => {
 
     useEffect(() => {
         const choices = sections.filter((section) => {
+            if (section.prerequisite && !traits.includes(section.prerequisite)) {
+                return false;
+            }
+
             return section.description !== currentSection.description
         });
 

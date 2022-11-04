@@ -9,6 +9,9 @@ const TEST_CHOICE_THREE = 'Leads to choice 3';
 const TEST_DESCRIPTION_THREE = 'Test Description Three!';
 const TEST_SHARED_TRAIT = 'Test Shared Trait!';
 
+const TEST_CHOICE_FOUR = 'Leads to section 4';
+const TEST_DESCRIPTION_FOUR = 'Test Description Four!';
+
 jest.mock('../data/sectionData', () => {
     return {
         __esModule: true,
@@ -26,7 +29,13 @@ jest.mock('../data/sectionData', () => {
                 choiceLabel: TEST_CHOICE_THREE,
                 description: TEST_DESCRIPTION_THREE,
                 trait: TEST_SHARED_TRAIT
-            }
+            },
+            {
+                choiceLabel: TEST_CHOICE_FOUR,
+                description: TEST_DESCRIPTION_FOUR,
+                prerequisite: TEST_SHARED_TRAIT,
+                trait: null
+            },
         ]
     };
 });
@@ -38,16 +47,25 @@ describe('App', () => {
         getByText('Dialogue Tree');
     });
 
-    it('should display a dialogue description', () => {
+    it('should display a section description', () => {
         const { getByText } = render(<App />);
 
         getByText(TEST_DESCRIPTION_ONE);
     });
 
-    it('should render several buttons', () => {
+    it('should render several choices as buttons', () => {
         const { getByText } = render(<App />);
 
         getByText(TEST_CHOICE_TWO);
+        getByText(TEST_CHOICE_THREE);
+    });
+
+    it('should NOT render choices that are locked behind a trait', () => {
+        const { getByText, queryByText } = render(<App />);
+
+        getByText(TEST_CHOICE_TWO);
+        getByText(TEST_CHOICE_THREE);
+        expect(queryByText(TEST_CHOICE_FOUR)).toBeNull();
     });
 
     it('should render the next section when a choice is clicked.', async () => {
@@ -85,5 +103,17 @@ describe('App', () => {
         });
 
         expect(getAllByText(TEST_SHARED_TRAIT)).toHaveLength(1);
+    });
+
+    it('should only render a choice blocked by a prerequisite when we have the corresponding trait.', async () => {
+        const { getByText, queryByText } = render(<App />);
+
+        expect(queryByText(TEST_CHOICE_FOUR)).toBeNull();
+
+        await act(() => {
+            getByText(TEST_CHOICE_TWO).click();
+        });
+
+        getByText(TEST_CHOICE_FOUR);
     });
 });
