@@ -1,9 +1,12 @@
 import './description.css';
 
-export const Description = () => {
+type Props = {
+    label: string
+};
+export const Description = (props: Props) => {
     return (
     <div className="description">
-        <p>Description</p>
+        <p>{props.label}</p>
     </div>
     );
 };

@@ -3,8 +3,9 @@ import {Description} from "./Description";
 
 describe('Description', () => {
     it('should render the word description', () => {
-        const { getByText } = render(<Description />);
+        const label = 'test_label';
+        const { getByText } = render(<Description label={label} />);
 
-        getByText('Description');
+        getByText(label);
     });
 });
