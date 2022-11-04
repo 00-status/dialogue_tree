@@ -12,4 +12,10 @@ describe('App', () => {
 
         getByText('Description');
     })
+    it('should render several buttons', function () {
+        const { getByText } = render(<App />);
+
+        getByText('Choice 1');
+        getByText('Choice 2');
+    });
 });
