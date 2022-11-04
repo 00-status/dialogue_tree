@@ -19,7 +19,7 @@ export const App = () => {
     const onChoiceClick = (section: Section) => {
         setCurrentSection(section);
 
-        if (section.trait) {
+        if (section.trait && !traits.includes(section.trait)) {
             traits.push(section.trait);
             setTraits([...traits]);
         }
@@ -28,7 +28,9 @@ export const App = () => {
     return (
     <div className='app'>
         <h1>Dialogue Tree</h1>
-        {traits}
+        <ul>
+            {traits.map((trait: string) => <li key={trait}>{trait}</li>)}
+        </ul>
         <Description label={currentSection.description} />
         {currentChoices.map((section) => {
             return <button key={section.description} onClick={() => onChoiceClick(section)}>

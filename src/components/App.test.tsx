@@ -5,7 +5,9 @@ const TEST_CHOICE_ONE = 'Leads to choice 1';
 const TEST_DESCRIPTION_ONE = 'Test Description One!';
 const TEST_CHOICE_TWO = 'Leads to choice 2';
 const TEST_DESCRIPTION_TWO = 'Test Description Two!';
-const TEST_TRAIT_TWO = 'Test Trait Two';
+const TEST_CHOICE_THREE = 'Leads to choice 3';
+const TEST_DESCRIPTION_THREE = 'Test Description Three!';
+const TEST_SHARED_TRAIT = 'Test Shared Trait!';
 
 jest.mock('../data/sectionData', () => {
     return {
@@ -18,7 +20,12 @@ jest.mock('../data/sectionData', () => {
             {
                 choiceLabel: TEST_CHOICE_TWO,
                 description: TEST_DESCRIPTION_TWO,
-                trait: TEST_TRAIT_TWO
+                trait: TEST_SHARED_TRAIT
+            },
+            {
+                choiceLabel: TEST_CHOICE_THREE,
+                description: TEST_DESCRIPTION_THREE,
+                trait: TEST_SHARED_TRAIT
             }
         ]
     };
@@ -58,12 +65,25 @@ describe('App', () => {
     it('should render a trait when a section with a trait is clicked.', async () => {
         const { getByText, queryByText } = render(<App />);
 
-        expect(queryByText(TEST_TRAIT_TWO)).toBeNull();
+        expect(queryByText(TEST_SHARED_TRAIT)).toBeNull();
 
         await act(() => {
             getByText(TEST_CHOICE_TWO).click();
         });
 
-        getByText(TEST_TRAIT_TWO);
+        getByText(TEST_SHARED_TRAIT);
+    });
+
+    it('should NOT render multiple traits of the same name.', async () => {
+        const { getByText, getAllByText } = render(<App />);
+
+        await act(() => {
+            getByText(TEST_CHOICE_TWO).click();
+        });
+        await act(() => {
+            getByText(TEST_CHOICE_THREE).click();
+        });
+
+        expect(getAllByText(TEST_SHARED_TRAIT)).toHaveLength(1);
     });
 });
