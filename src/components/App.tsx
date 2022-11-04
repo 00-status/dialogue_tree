@@ -1,24 +1,14 @@
 import './app.css';
 import {Description} from "./Description/Description";
 import {sections} from "../data/sectionData";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useAvailableSections} from "../hooks/useAvailableSections";
 
 export const App = () => {
     const [section, setSection] = useState(sections[0]);
-    const [choices, setChoices] = useState<Array<Section>>([]);
     const [traits, setTraits] = useState<Array<string>>([]);
 
-    useEffect(() => {
-        const choices = sections.filter((currentSection) => {
-            if (currentSection.prerequisite && !traits.includes(currentSection.prerequisite)) {
-                return false;
-            }
-
-            return section.description !== currentSection.description
-        });
-
-        setChoices(choices);
-    }, [section]);
+    const { sections: choices } = useAvailableSections(section.description, traits);
 
     const onChoiceClick = (section: Section) => {
         setSection(section);
